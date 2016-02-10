@@ -1,5 +1,7 @@
 from django.core.urlresolvers import resolve
 from django.test import TestCase
+from django.http import HttpRequest
+
 from lists.views import home_page # View function that return the HTML we want.
 
 class HomePageTest(TestCase):
@@ -10,7 +12,9 @@ class HomePageTest(TestCase):
 		# Checking tht resolve(), when called with the root of the site, finds a function called home_page
 		self.assertEqual(found.func, home_page)
 
-#class SmokeTest(TestCase):
-#
-#	def test_bad_maths(self):
-#		self.assertEqual(1 + 1, 3)
+	def test_home_page_returns_correct_hmtl(self):
+		request = HttpRequest() # Create an HttpRequest object, which is what Django will see when a browser asks for a page.
+		response = home_page(request) # Pass is to our home_page view, giving back an HttpResponse
+		self.assertTrue(response.content.startswith(b'<html>')) # Using 'b' because response.content is raw bytes, not a Python string
+		self.assertIn(b'<title>To-Do lists</title>', response.content)
+		self.assertTrue(response.content.endswith(b'</html>'))

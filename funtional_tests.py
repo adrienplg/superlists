@@ -17,7 +17,7 @@ class NewVisitorTest(unittest.TestCase):
 
 		# Test assertion that 'To-Do' is in the title
 		self.assertIn('To-Do', self.browser.title) #
-		self.fail('Finish the test!') # Fails no matter what. Used as a reminder to finish the test.
+		#self.fail('Finish the test!') # Fails no matter what. Used as a reminder to finish the test.
 
 		# Enter a todo item
 
